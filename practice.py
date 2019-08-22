@@ -10,6 +10,7 @@ import pandas as pd
 import json
 import matplotlib.pyplot as plt
 import seaborn as sns
+import numpy as np
 from os import path
 from PIL import Image
 from wordcloud import WordCloud, STOPWORDS, ImageColorGenerator
@@ -119,7 +120,7 @@ business_ids = businesses['business_id'].values
 pizza_reviews = pd.read_csv('pizza_reviews.csv')
 
 good_reviews = pizza_reviews.loc[pizza_reviews['stars'] == 5, 'text'].str.lower()
-bad_reviews = pizza_reviews.loc[pizza_reviews['stars'] <= 4, 'text'].str.lower()
+bad_reviews = pizza_reviews.loc[pizza_reviews['stars'] <= 3, 'text'].str.lower()
 
 
 
@@ -130,19 +131,36 @@ bad_corpus = bad_reviews[:1000]
 good_corpus = ' '.join(review for review in good_corpus)
 bad_corpus = ' '.join(review for review in bad_corpus)
 
+stopwords = set(STOPWORDS)
+stopwords.update(["pizza", "good", 'great', "well", "restaurant"])
+
+
+
 #wordcloud
 
-wordcloud = WordCloud(max_font_size=50, max_words=100,background_color="white").generate(good_corpus)
+wordcloud = WordCloud(stopwords=stopwords,max_font_size=50, max_words=100, background_color="white").generate(bad_corpus)
 
 plt.imshow(wordcloud, interpolation='bilinear')
 plt.axis('off')
 
-wordcloud.to_file('good_review.png')
+'''
+
+pizza_mask = np.array(Image.open("wine.jpg"))
+pizza_mask
 
 
 
+def transform_format(val):
+    if val == 0:
+        return 255
+    else:
+        return val
+    
+    
+transformed_pizza_mask = np.ndarray((pizza_mask.shape[0],pizza_mask.shape[1]), np.int32)
+
+for i in range(len(pizza_mask)):
+    transformed_pizza_mask[i] = list(map(transform_format, pizza_mask[i]))    
 
 
-
-
-
+'''
