@@ -108,46 +108,36 @@ def pizzas_review(x):
 
 pizza_reviews = review_df.loc[review_df['business_id'].apply(pizzas_review)]
 
+pizza_reviews.to_csv('pizza_reviews', columns=['business_id', 'cool', 'date', 'funny', 'review_id', 'stars', 'text', 'useful', 'user_id'])
 
 
 
-good_reviews = pizza_reviews.loc[pizza_reviews['stars'] == 5]
-bad_reviews = pizza_reviews.loc[pizza_reviews['stars'] <= 4]
+#-----------review and business csv's
 
-a_user = good_reviews.iloc[1]['user_id']
+businesses = pd.read_csv('business_list.csv')
+business_ids = businesses['business_id'].values
+pizza_reviews = pd.read_csv('pizza_reviews.csv')
 
-pizza_reviews.loc[pizza_reviews['user_id'] == 'tU-4DhNg8JjCHwzzNe3ojQ']
-
-
-
-
+good_reviews = pizza_reviews.loc[pizza_reviews['stars'] == 5, 'text'].str.lower()
+bad_reviews = pizza_reviews.loc[pizza_reviews['stars'] <= 4, 'text'].str.lower()
 
 
 
-
-import sys
-# insert at 1, 0 is the script path (or '' in REPL)
-sys.path.insert(1, r'C:\Users\abhiram_ch_v_n_s\Desktop\yelp_casestudy\yelp_dataset\wordcloud')
+good_corpus = good_reviews[:1000]
+bad_corpus = bad_reviews[:1000]
 
 
+good_corpus = ' '.join(review for review in good_corpus)
+bad_corpus = ' '.join(review for review in bad_corpus)
 
-from wordcloud import WordCloud, STOPWORDS, ImageColorGenerator
+#wordcloud
 
+wordcloud = WordCloud(max_font_size=50, max_words=100,background_color="white").generate(good_corpus)
 
+plt.imshow(wordcloud, interpolation='bilinear')
+plt.axis('off')
 
-
-
-
-
-
-
-
-
-
-
-
-
-
+wordcloud.to_file('good_review.png')
 
 
 
