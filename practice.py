@@ -144,24 +144,47 @@ wordcloud = WordCloud(stopwords=stopwords,max_font_size=50, max_words=100, backg
 plt.imshow(wordcloud, interpolation='bilinear')
 plt.axis('off')
 
-'''
-
-pizza_mask = np.array(Image.open("wine.jpg"))
-pizza_mask
 
 
 
-def transform_format(val):
-    if val == 0:
-        return 255
-    else:
-        return val
-    
-    
-transformed_pizza_mask = np.ndarray((pizza_mask.shape[0],pizza_mask.shape[1]), np.int32)
 
-for i in range(len(pizza_mask)):
-    transformed_pizza_mask[i] = list(map(transform_format, pizza_mask[i]))    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 <<<<<<< HEAD
