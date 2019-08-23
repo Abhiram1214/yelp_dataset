@@ -147,14 +147,40 @@ plt.axis('off')
 
 
 
+#users with most reviews
+    
+most_reviews = elite_users.sort_values(by='review_count', ascending=False).head()
+    
+
+#total reviews from the most freq cusotmer
+most_visited_user = most_reviews.iloc[0]
+most_visited_user_review = pizza_reviews.loc[pizza_reviews['user_id'] == most_visited_user['user_id']]
+
+
+#bad reviews that a restaruant received from the max_user
+
+most_visited_user_review['stars'] #only 1 review from the user
+
+
+#oldest usr on yelp
+
+oldest_user = elite_users.sort_values(by='yelping_since', ascending=False).head(1)
+
+
+#users with elite status
+elite_users = user_df.loc[user_df['elite'] != '']
+
+#most freq user's most freq business
+user_business_id = pizza_reviews.loc[pizza_reviews['user_id'] == most_visited_user['user_id']]
+freq_business_id = user_business_id['business_id']
+    
+
+#most freq user's less visited business
+les_freq_business = user_business_id['business_id']
 
 
 
-
-
-
-
-
+#highest rated businessess
 
 
 
